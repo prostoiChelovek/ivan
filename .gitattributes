@@ -1,0 +1,14 @@
+data filter=lfs diff=lfs merge=lfs -text
+data/ru.dic filter=lfs diff=lfs merge=lfs -text
+data/test.dic filter=lfs diff=lfs merge=lfs -text
+data/test.jsgf filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000 filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/feat.params filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/transition_matrices filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/feature_transform filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/mdef filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/means filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/mixture_weights filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/noisedict filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/ru.lm filter=lfs diff=lfs merge=lfs -text
+data/zero_ru.cd_cont_4000/variances filter=lfs diff=lfs merge=lfs -text
