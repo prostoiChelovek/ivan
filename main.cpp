@@ -6,8 +6,8 @@
 int main() {
     RHSpeaker speaker("alan");
 
-    Recognition rec("../data/zero_ru.cd_cont_4000", "../data/test.dic", "../data/test.jsgf");
-    CallbackFn cb = [&speaker, &rec](std::string str){
+    SpeechRecognition::Recognition rec("../data/zero_ru.cd_cont_4000", "../data/test.dic", "../data/test.jsgf");
+    SpeechRecognition::CallbackFn cb = [&speaker, &rec](std::string str){
         std::cout << "You said: " << str << std::endl;
     };
     rec.onRecognize = cb;

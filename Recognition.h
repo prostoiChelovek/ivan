@@ -11,36 +11,40 @@
 #include <condition_variable>
 #include <future>
 
+namespace SpeechRecognition {
 #include <pocketsphinx.h>
 #include <sphinxbase/ad.h>
 
-using CallbackFn = std::function<void(std::string)>;
+    using CallbackFn = std::function<void(std::string)>;
 
 // http://www.robotrebels.org/index.php?topic=239.0
-class Recognition {
-public:
-    uint8 speech_started, in_speech;
-    CallbackFn onRecognize;
-    bool runLoop = false;
+    class Recognition {
+    public:
+        uint8 speech_started, in_speech;
+        CallbackFn onRecognize;
+        bool runLoop = false;
 
-    Recognition(std::string langModel, std::string dict, std::string jsgf, bool hideLog = true);
-    ~Recognition();
+        Recognition(std::string langModel, std::string dict, std::string jsgf, bool hideLog = true);
 
-    std::string recognize_from_microphone();
+        ~Recognition();
 
-    void start();
-    void wait();
+        std::string recognize_from_microphone();
 
-private:
-    ps_decoder_t *deocder;
-    ad_rec_t *audioDev;
-    int16 audioBuf[4096];
-    int32 framesInBuf;
+        void start();
 
-    std::thread loopTh;
+        void wait();
 
-    void loop();
-};
+    private:
+        ps_decoder_t *deocder;
+        ad_rec_t *audioDev;
+        int16 audioBuf[4096];
+        int32 framesInBuf;
 
+        std::thread loopTh;
+
+        void loop();
+    };
+
+}
 
 #endif //SPEECH_RECOGNITION_H
