@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(speech)
+project(run)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -14,12 +14,15 @@ set(SOURCE_FILES main.cpp speaking.cpp speaking.h Recognition.cpp Recognition.h)
 
 set(CMAKE_CXX_FLAGS "-Wall")
 
-include_directories(${RHVOICE_DIR})
-include_directories(${POCKETSPHINX_INCLUDE_DIRS})
-include_directories(${SPHINX_INCLUDE_DIRS})
+add_library(speech SHARED speaking.cpp Recognition.cpp)
 
-add_executable(speech ${SOURCE_FILES})
+target_include_directories(speech PUBLIC ${RHVOICE_DIR})
+target_include_directories(speech PUBLIC ${POCKETSPHINX_INCLUDE_DIRS})
+target_include_directories(speech PUBLIC ${SPHINX_INCLUDE_DIRS})
 
 target_link_libraries(speech ${RHVOICE_LIBS})
 target_link_libraries(speech ${POCKETSPHINX_LIBRARIES})
 target_link_libraries(speech ${SPHINX_LIBRARIES})
+
+add_executable(run ${SOURCE_FILES})
+target_link_libraries(run speech)
