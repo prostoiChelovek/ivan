@@ -84,8 +84,13 @@ namespace SpeechRecognition {
                 if (onKw)
                     onKw(decoded_speech);
                 std::thread([&]() {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(int(kwTimeout * 1000)));
-                    currentSt = KWS;
+                    while (true) {
+                        std::this_thread::sleep_for(std::chrono::milliseconds(int(kwTimeout * 1000)));
+                        if (in_speech)
+                            continue;
+                        currentSt = KWS;
+                        break;
+                    }
                 }).detach();
                 continue;
             }
