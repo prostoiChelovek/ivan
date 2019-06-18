@@ -75,6 +75,9 @@ namespace SpeechRecognition {
             std::string decoded_speech = recognize_from_microphone();
             switchMode(currentSt);
             if (decoded_speech.empty()) continue;
+            if (maxNoizeOccurs != -1) {
+                if (countOccurs(decoded_speech, "<s>") > maxNoizeOccurs) continue;
+            }
 
             if (ps_get_search(deocder) == searchTypeStr(KWS)) {
                 switchMode(JSGF);

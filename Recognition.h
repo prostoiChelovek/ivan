@@ -29,6 +29,16 @@ namespace SpeechRecognition {
         return "";
     }
 
+    inline int countOccurs(const std::string &str, const std::string &target) {
+        int occurrences = 0;
+        std::string::size_type pos = 0;
+        while ((pos = str.find(target, pos)) != std::string::npos) {
+            ++occurrences;
+            pos += target.length();
+        }
+        return occurrences;
+    }
+
 // http://www.robotrebels.org/index.php?topic=239.0
     class Recognition {
     public:
@@ -39,6 +49,10 @@ namespace SpeechRecognition {
         CallbackFn onKw;
         float kwTimeout = 5.0;
         bool runLoop = false;
+
+        // ignore speech that contains <s>
+        // set to -1 for not use
+        int maxNoizeOccurs = 0;
 
         Recognition(std::string langModel, std::string dict, std::string jsgf = "",
                     std::string kws = "", bool hideLog = true);

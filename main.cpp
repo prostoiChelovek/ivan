@@ -7,7 +7,7 @@
 int main() {
     RHSpeaker speaker("anna");
 
-    SpeechRecognition::Recognition rec("../data/cmusphinx-ru-5.2", "../data/test3.dic",
+    SpeechRecognition::Recognition rec("../data/zero_ru.cd_cont_4000", "../test.dic",
                                        "../data/gram.jsgf", "../data/kws.kwlist", false);
     SpeechRecognition::CallbackFn onKw = [&speaker, &rec](std::string str) {
         speaker.say("Слушаю...");
