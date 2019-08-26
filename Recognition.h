@@ -74,7 +74,7 @@ namespace SpeechRecognition {
         ad_rec_t *audioDev;
         int16 audioBuf[4096];
         int32 framesInBuf;
-        SearchType currentSt = KWS;
+        SearchType current_search_type = KWS;
 
         std::thread loopTh;
 

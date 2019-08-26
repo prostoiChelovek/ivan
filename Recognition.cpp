@@ -63,6 +63,11 @@ namespace SpeechRecognition {
 
                 if (hyp == nullptr)
                     return "";
+                if (current_search_type == JSGF)
+                    std::cout << "JSGF" << std::endl;
+                if (current_search_type == KWS)
+                    std::cout << "KWS" << std::endl;
+
                 return hyp;
             }
         }
@@ -75,13 +80,13 @@ namespace SpeechRecognition {
 
     void Recognition::switchMode(const SearchType &st) {
         ps_set_search(deocder, searchTypeStr(st).c_str());
-        currentSt = st;
+        current_search_type = st;
     }
 
     void Recognition::loop() {
         while (runLoop) {
             std::string decoded_speech = recognize_from_microphone();
-            switchMode(currentSt);
+
             if (decoded_speech.empty()) continue;
             if (maxNoizeOccurs != -1) {
                 if (countOccurs(decoded_speech, "<s>") > maxNoizeOccurs) continue;
@@ -96,18 +101,23 @@ namespace SpeechRecognition {
                         std::this_thread::sleep_for(std::chrono::milliseconds(int(kwTimeout * 1000)));
                         if (in_speech)
                             continue;
-                        currentSt = KWS;
+                        current_search_type = KWS;
                         break;
                     }
                 }).detach();
                 continue;
             }
+
+            switchMode(current_search_type);
+
             if (onRecognize) {
                 if (ps_get_search(deocder) == searchTypeStr(JSGF)) {
                     onRecognize(decoded_speech);
-                    switchMode(KWS);
                 }
             }
+
+            if (ps_get_search(deocder) == searchTypeStr(JSGF))
+                switchMode(KWS);
         }
     }
 
