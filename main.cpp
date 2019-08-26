@@ -5,12 +5,13 @@
 
 
 int main() {
-    RHSpeaker speaker("anna");
+    RHSpeaker speaker("irina");
 
-    SpeechRecognition::Recognition rec("../data/zero_ru_cont_8k_v3/zero_ru.cd_cont_4000", "../test.dic",
-                                       "../data/gram.jsgf", "../data/kws.kwlist", false);
+    SpeechRecognition::Recognition rec("../data/cmusphinx-en-us-5.2", "../dict.en.dic",
+                                       "../gram-en.jsgf", "../kws-en.kwlist", false);
     SpeechRecognition::CallbackFn onKw = [&speaker, &rec](std::string str) {
         speaker.say("Слушаю...");
+        std::cout << "Phase: " << str << std::endl;
     };
     SpeechRecognition::CallbackFn onRec = [&speaker, &rec](std::string str) {
         std::cout << "You said: " << str << std::endl;

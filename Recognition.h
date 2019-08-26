@@ -54,6 +54,8 @@ namespace SpeechRecognition {
         // set to -1 for not use
         int maxNoizeOccurs = 0;
 
+        bool pause = false;
+
         Recognition(std::string langModel, std::string dict, std::string jsgf = "",
                     std::string kws = "", bool hideLog = true);
 

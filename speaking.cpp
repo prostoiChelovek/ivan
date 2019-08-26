@@ -45,6 +45,8 @@ void audio_player::finish() {
 RHSpeaker::RHSpeaker(std::string voice) {
     eng = RHVoice::smart_ptr<RHVoice::engine>(new RHVoice::engine);
     setVoice(std::move(voice));
+    eng->quality.set_from_string("max");
+    eng->text_settings.stress_marker = '>';
 }
 
 void RHSpeaker::setVoice(std::string voice) {

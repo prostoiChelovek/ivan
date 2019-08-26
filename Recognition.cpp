@@ -37,7 +37,12 @@ namespace SpeechRecognition {
         ps_start_utt(deocder);                              // mark the start of the utterance
         speech_started = FALSE;                             // clear the speech_started flag
 
-        while (true) {
+        while (pause) {
+            int16 buf[128];
+            ad_read(audioDev, buf, 128);
+        }
+
+        while (!pause) {
             // capture the number of frames in the audio buffer
             framesInBuf = ad_read(audioDev, audioBuf, 4096);
             if (framesInBuf == -1)
@@ -54,7 +59,6 @@ namespace SpeechRecognition {
                 ps_end_utt(deocder);
                 ad_stop_rec(audioDev);
 
-                // query pocketsphinx for "hypothesis" of decoded statement
                 char const *hyp = ps_get_hyp(deocder, nullptr);
 
                 if (hyp == nullptr)
@@ -62,6 +66,10 @@ namespace SpeechRecognition {
                 return hyp;
             }
         }
+
+        ps_end_utt(deocder);
+        ad_stop_rec(audioDev);
+
         return "";
     }
 

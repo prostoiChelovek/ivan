@@ -31,6 +31,8 @@ private:
 
 class RHSpeaker {
 public:
+    RHVoice::smart_ptr<RHVoice::engine> eng;
+
     explicit RHSpeaker(std::string voice);
 
     void setVoice(std::string voice);
@@ -39,7 +41,6 @@ public:
 
 private:
     audio_player player;
-    RHVoice::smart_ptr<RHVoice::engine> eng;
     RHVoice::voice_profile profile;
 };
 
